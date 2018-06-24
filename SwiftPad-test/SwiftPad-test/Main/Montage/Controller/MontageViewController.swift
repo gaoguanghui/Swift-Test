@@ -18,7 +18,6 @@ class MontageViewController: UIViewController , UIPopoverPresentationControllerD
         super.viewDidLoad()
         navigationController?.navigationBar.isTranslucent = false
         view.backgroundColor = UIColor.green
-        NotificationCenter.default.addObserver(self, selector: #selector(presentMenuView), name: NSNotification.Name(rawValue: "MenuViewAction"), object: nil)
     }
 
     //MARK: --- setupUI
@@ -105,23 +104,6 @@ extension MontageViewController {
         }
         moveView?.removeFromSuperview()
         moveView = nil
-    }
-    //
-    @objc func presentMenuView(notification: Notification) {
-        print("TTTTTTTTT====")
-        let signalView = notification.object as! SignalView
-        if signalView != nil {
-            let popVC = GHPopMenuController()
-            popVC.modalPresentationStyle = .popover
-            popVC.popoverPresentationController?.sourceView = signalView
-            popVC.popoverPresentationController?.backgroundColor = UIColor.yellow
-            popVC.popoverPresentationController?.permittedArrowDirections = .any
-            popVC.popoverPresentationController?.sourceRect = signalView.bounds
-            popVC.popoverPresentationController?.delegate = self
-            present(popVC, animated: true) {
-            }
-        }
-        
     }
     //MARK: --- UIPopoverPresentationControllerDelegate
     func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {

@@ -21,6 +21,8 @@ class PlayView: UIView {//播放界面
     var originalPoint: CGPoint?//用于拖动时的处理
     var panSignalView: SignalView?//正在拖动的信号源播放视图
     var isPanSignalView = false//是否是拖动信号源播放视图
+    var shapeLayer: CAShapeLayer?
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -92,7 +94,7 @@ class PlayView: UIView {//播放界面
         }
     }
     
-    //MARK: ---
+    //MARK: --- 判断是否包含
     //判断一个播放视图与那几个cell有交集 然后填充满有交集cell中
     func judgeContainsRect(_ view: SignalView) {
         var containsArray = [RectPath]()
@@ -148,7 +150,7 @@ extension PlayView {
         //双击到某个播放源视图 填充满所占的cells
         for view in subviews.reversed() {
             if view.frame.contains(point) && view.isKind(of: SignalView.self) {
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "MenuViewAction"), object: view)
+                showMenuView(point)
             }
         }
     }
@@ -163,10 +165,9 @@ extension PlayView {
     }
     @objc func longPressAction(longPress:UILongPressGestureRecognizer) {
         let point = longPress.location(in: longPress.view)
-        print("==========longPress==\(point)")
         switch longPress.state {
         case .began:
-            print("==========panBegin==\(point)")
+            print("==========longPressBegin==\(point)")
             for view in self.subviews.reversed() {
                 if view.frame.contains(point) && view.isKind(of: SignalView.self) {
                     originalPoint = point
@@ -183,7 +184,7 @@ extension PlayView {
                 }
             }
         case .changed:
-            print("==========panChanged")
+            print("==========longPressChanged")
             if isPanSignalView {
                 let offsetX = point.x - (originalPoint?.x)!
                 let offsetY = point.y - (originalPoint?.y)!
@@ -211,18 +212,18 @@ extension PlayView {
                 }
             }
             isPanSignalView = false
-            print("=========panEnd==")
+            print("=========longPressEnd==")
             let scrollView = superview as! PlayerWindowView
             scrollView.isScrollEnabled = true
-        case .cancelled:
-            isPanSignalView = false
-            let scrollView = superview as! PlayerWindowView
-            scrollView.isScrollEnabled = true
-            print("========= panCanceled==")
-        case .possible:
-            print("--------possible")
-        case .failed:
-            print("--------failed")
+//        case .cancelled:
+//            isPanSignalView = false
+//            let scrollView = superview as! PlayerWindowView
+//            scrollView.isScrollEnabled = true
+//            print("========= panCanceled==")
+//        case .possible:
+//            print("--------possible")
+//        case .failed:
+//            print("--------failed")
         default:
             break
         }
@@ -255,15 +256,15 @@ extension PlayView {
             print("=========panEnd==")
             let scrollView = superview as! PlayerWindowView
             scrollView.isScrollEnabled = true
-        case .cancelled:
-            isPanSignalView = false
-            let scrollView = superview as! PlayerWindowView
-            scrollView.isScrollEnabled = true
-            print("========= panCanceled==")
-        case .possible:
-            print("--------possible")
-        case .failed:
-            print("--------failed")
+//        case .cancelled:
+//            isPanSignalView = false
+//            let scrollView = superview as! PlayerWindowView
+//            scrollView.isScrollEnabled = true
+//            print("========= panCanceled==")
+//        case .possible:
+//            print("--------possible")
+//        case .failed:
+//            print("--------failed")
         default:
             break
         }
@@ -316,6 +317,55 @@ extension PlayView {
             break
         }
         originalPoint = point
+    }
+    //MARK: --- showMenuView()
+    func showMenuView(_ point: CGPoint) {
+        let point1 = convert(point, to: UIApplication.shared.keyWindow)
+        let maskView = UIButton(frame: UIScreen.main.bounds)
+        maskView.tag = 100
+        maskView.backgroundColor = UIColor.black.withAlphaComponent(0)
+        maskView.addTarget(self, action: #selector(maskViewAction), for: .touchUpInside)
+        UIApplication.shared.keyWindow?.addSubview(maskView)
+        let aView = GHMenuView(frame: CGRect(x: point1.x, y: point1.y, width: 200, height: 30))
+        aView.center = CGPoint(x: point1.x, y: point1.y-15-10)
+        aView.selectBlock = { type in
+            print("-=-=-=-=-=-=-=--=\(type)")
+            //根据type  对panSignalView进行操作
+            self.maskViewAction()
+        }
+        aView.tag = 101
+        aView.layer.borderColor = UIColor.red.cgColor
+        aView.layer.borderWidth = 1.0
+        aView.layer.cornerRadius = 15
+        aView.layer.masksToBounds = true
+        aView.backgroundColor = UIColor.red
+        UIApplication.shared.keyWindow?.addSubview(aView)
+        
+        shapeLayer = CAShapeLayer()
+        shapeLayer?.fillColor = UIColor.orange.cgColor
+        let bezierPath = UIBezierPath()
+        bezierPath.move(to: point1)
+        bezierPath.addLine(to: CGPoint(x: point1.x+10, y: aView.frame.maxY))
+        bezierPath.addLine(to: CGPoint(x: point1.x-10, y: aView.frame.maxY))
+        bezierPath.addLine(to: point1)
+        bezierPath.close()
+        shapeLayer?.path = bezierPath.cgPath
+        UIApplication.shared.keyWindow?.layer.addSublayer(shapeLayer!)
+    }
+    //MARK: --- maskViewAction
+    //dismiss maskView and menuView
+    @objc func maskViewAction() {
+        let maskView = UIApplication.shared.keyWindow?.viewWithTag(100)
+        let menuView = UIApplication.shared.keyWindow?.viewWithTag(101)
+        if maskView != nil {
+            maskView?.removeFromSuperview()
+        }
+        if menuView != nil {
+            menuView?.removeFromSuperview()
+        }
+        if shapeLayer != nil {
+            shapeLayer?.removeFromSuperlayer()
+        }
     }
 }
 

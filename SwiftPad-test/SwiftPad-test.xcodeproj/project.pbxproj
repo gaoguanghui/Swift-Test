@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		228C282920DE48B100806E8E /* WZZPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 228C282820DE48B100806E8E /* WZZPopViewController.m */; };
-		228C283420DE573A00806E8E /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 228C283220DE573A00806E8E /* CollectionViewCell.m */; };
-		228C283520DE573A00806E8E /* GHPopMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 228C283320DE573A00806E8E /* GHPopMenuController.m */; };
+		227D388F20DF971300C90DD2 /* GHMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D388E20DF971300C90DD2 /* GHMenuView.swift */; };
+		227D389120DF9A2000C90DD2 /* MenuCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227D389020DF9A2000C90DD2 /* MenuCollectionCell.swift */; };
 		A701A6B520DA4F210088A164 /* SceneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A701A6B420DA4F210088A164 /* SceneTableViewCell.swift */; };
 		A701A6B720DA58DE0088A164 /* SignalSourceCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A701A6B620DA58DE0088A164 /* SignalSourceCollectionCell.swift */; };
 		A709B76120DB37E600DE3AC5 /* MoveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A709B76020DB37E600DE3AC5 /* MoveView.swift */; };
@@ -64,13 +63,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		228C282620DE48B000806E8E /* SwiftPad-test-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftPad-test-Bridging-Header.h"; sourceTree = "<group>"; };
-		228C282720DE48B000806E8E /* WZZPopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZZPopViewController.h; sourceTree = "<group>"; };
-		228C282820DE48B100806E8E /* WZZPopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZZPopViewController.m; sourceTree = "<group>"; };
-		228C283020DE573A00806E8E /* CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
-		228C283120DE573A00806E8E /* GHPopMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHPopMenuController.h; sourceTree = "<group>"; };
-		228C283220DE573A00806E8E /* CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
-		228C283320DE573A00806E8E /* GHPopMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHPopMenuController.m; sourceTree = "<group>"; };
+		227D388E20DF971300C90DD2 /* GHMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHMenuView.swift; sourceTree = "<group>"; };
+		227D389020DF9A2000C90DD2 /* MenuCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCollectionCell.swift; sourceTree = "<group>"; };
 		A701A6B420DA4F210088A164 /* SceneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneTableViewCell.swift; sourceTree = "<group>"; };
 		A701A6B620DA58DE0088A164 /* SignalSourceCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalSourceCollectionCell.swift; sourceTree = "<group>"; };
 		A709B76020DB37E600DE3AC5 /* MoveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveView.swift; sourceTree = "<group>"; };
@@ -248,6 +242,8 @@
 				A71DE97B20DA41E8002385A2 /* PlayerWindowView.swift */,
 				A709B76220DB678900DE3AC5 /* PlayView.swift */,
 				A79522CE20DC9D9A00235157 /* SignalView.swift */,
+				227D388E20DF971300C90DD2 /* GHMenuView.swift */,
+				227D389020DF9A2000C90DD2 /* MenuCollectionCell.swift */,
 			);
 			path = PlayerWindowView;
 			sourceTree = "<group>";
@@ -303,14 +299,7 @@
 		A7F9063A20DA16D2005052FE /* Vender */ = {
 			isa = PBXGroup;
 			children = (
-				228C283020DE573A00806E8E /* CollectionViewCell.h */,
-				228C283220DE573A00806E8E /* CollectionViewCell.m */,
-				228C283120DE573A00806E8E /* GHPopMenuController.h */,
-				228C283320DE573A00806E8E /* GHPopMenuController.m */,
-				228C282720DE48B000806E8E /* WZZPopViewController.h */,
-				228C282820DE48B100806E8E /* WZZPopViewController.m */,
 				A71DE92A20DA30C7002385A2 /* SnapKit */,
-				228C282620DE48B000806E8E /* SwiftPad-test-Bridging-Header.h */,
 			);
 			path = Vender;
 			sourceTree = "<group>";
@@ -404,7 +393,7 @@
 				A71DE95520DA30C7002385A2 /* ConstraintAttributes.swift in Sources */,
 				A71DE96720DA30C7002385A2 /* ConstraintMaker.swift in Sources */,
 				A71DE95620DA30C7002385A2 /* ConstraintViewDSL.swift in Sources */,
-				228C283420DE573A00806E8E /* CollectionViewCell.m in Sources */,
+				227D388F20DF971300C90DD2 /* GHMenuView.swift in Sources */,
 				A71DE97C20DA41E8002385A2 /* PlayerWindowView.swift in Sources */,
 				A71DE96D20DA30C7002385A2 /* Debugging.swift in Sources */,
 				A71DE96F20DA30C7002385A2 /* LayoutConstraint.swift in Sources */,
@@ -412,6 +401,7 @@
 				A71DE96A20DA30C7002385A2 /* ConstraintView+Extensions.swift in Sources */,
 				A71DE95420DA30C7002385A2 /* ConstraintMakerPriortizable.swift in Sources */,
 				A71DE96B20DA30C7002385A2 /* ConstraintItem.swift in Sources */,
+				227D389120DF9A2000C90DD2 /* MenuCollectionCell.swift in Sources */,
 				A71DE96520DA30C7002385A2 /* ConstraintOffsetTarget.swift in Sources */,
 				A71DE95E20DA30C7002385A2 /* ConstraintConfig.swift in Sources */,
 				A709B76120DB37E600DE3AC5 /* MoveView.swift in Sources */,
@@ -422,7 +412,6 @@
 				A7F9062620DA15FD005052FE /* AppDelegate.swift in Sources */,
 				A71DE95720DA30C7002385A2 /* ConstraintPriorityTarget.swift in Sources */,
 				A71DE96C20DA30C7002385A2 /* Constraint.swift in Sources */,
-				228C282920DE48B100806E8E /* WZZPopViewController.m in Sources */,
 				A71DE97A20DA41DB002385A2 /* SceneListView.swift in Sources */,
 				A71DE96E20DA30C7002385A2 /* ConstraintRelatableTarget.swift in Sources */,
 				A71DE92120DA2256002385A2 /* BaseViewController.swift in Sources */,
@@ -445,7 +434,6 @@
 				A79522CF20DC9D9A00235157 /* SignalView.swift in Sources */,
 				A71DE95A20DA30C7002385A2 /* ConstraintDSL.swift in Sources */,
 				A71DE96220DA30C7002385A2 /* ConstraintLayoutSupport.swift in Sources */,
-				228C283520DE573A00806E8E /* GHPopMenuController.m in Sources */,
 				A71DE95920DA30C7002385A2 /* ConstraintMakerFinalizable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -600,7 +588,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "abc.SwiftPad-test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "SwiftPad-test/Vender/SwiftPad-test-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -622,7 +610,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "abc.SwiftPad-test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "SwiftPad-test/Vender/SwiftPad-test-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
