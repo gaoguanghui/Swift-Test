@@ -8,8 +8,8 @@
 
 import UIKit
 
-class MontageViewController: UIViewController {
-    var originalPoint: CGPoint = CGPoint(x: 0, y: 0)
+class MontageViewController: UIViewController , UIPopoverPresentationControllerDelegate{
+    var originalPoint: CGPoint?
     var moveView: MoveView?
     var longPressGesture: UILongPressGestureRecognizer?
     
@@ -18,6 +18,7 @@ class MontageViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.navigationBar.isTranslucent = false
         view.backgroundColor = UIColor.green
+        NotificationCenter.default.addObserver(self, selector: #selector(presentMenuView), name: NSNotification.Name(rawValue: "MenuViewAction"), object: nil)
     }
 
     //MARK: --- setupUI
@@ -57,7 +58,7 @@ extension MontageViewController {
             let isInSignalSourceView = signalSourceView.frame.contains(point)
             if isInSignalSourceView {
                 originalPoint = point
-                let point = view.convert(originalPoint, to: signalSourceView.collectionView)
+                let point = view.convert(originalPoint!, to: signalSourceView.collectionView)
                 let selectedIndexPath = signalSourceView.collectionView.indexPathForItem(at: point)
                 if selectedIndexPath != nil {
                     let cell = signalSourceView.collectionView.cellForItem(at: (selectedIndexPath)!)
@@ -69,16 +70,16 @@ extension MontageViewController {
             }
         case .changed:
             if moveView != nil{
-                let offsetX = point.x - originalPoint.x
-                let offsetY = point.y - originalPoint.y
+                let offsetX = point.x - (originalPoint?.x)!
+                let offsetY = point.y - (originalPoint?.y)!
                 let originalCenter = moveView?.center
                 moveView?.center = CGPoint(x: (originalCenter?.x)! + offsetX, y: (originalCenter?.y)! + offsetY)
                 originalPoint = point
             }
         case .ended:
             if moveView != nil {
-                let offsetX = point.x - originalPoint.x
-                let offsetY = point.y - originalPoint.y
+                let offsetX = point.x - (originalPoint?.x)!
+                let offsetY = point.y - (originalPoint?.y)!
                 let originalCenter = moveView?.center
                 moveView?.center = CGPoint(x: (originalCenter?.x)! + offsetX, y: (originalCenter?.y)! + offsetY)
                 moveViewToPlayerWindow(touchPoint: point)
@@ -104,6 +105,27 @@ extension MontageViewController {
         }
         moveView?.removeFromSuperview()
         moveView = nil
+    }
+    //
+    @objc func presentMenuView(notification: Notification) {
+        print("TTTTTTTTT====")
+        let signalView = notification.object as! SignalView
+        if signalView != nil {
+            let popVC = GHPopMenuController()
+            popVC.modalPresentationStyle = .popover
+            popVC.popoverPresentationController?.sourceView = signalView
+            popVC.popoverPresentationController?.backgroundColor = UIColor.yellow
+            popVC.popoverPresentationController?.permittedArrowDirections = .any
+            popVC.popoverPresentationController?.sourceRect = signalView.bounds
+            popVC.popoverPresentationController?.delegate = self
+            present(popVC, animated: true) {
+            }
+        }
+        
+    }
+    //MARK: --- UIPopoverPresentationControllerDelegate
+    func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
+        return true
     }
 }
 
